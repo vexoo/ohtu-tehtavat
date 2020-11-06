@@ -9,3 +9,8 @@ Feature: As a registered user can log in with valid username/password-combinatio
         Given login is selected
         When username "jukka" and password "wrong" are given
         Then system will respond "invalid username or password"
+
+    Scenario: nonexistent user can not login to 
+        Given login is selected
+        When  nonexistent username "jugga" and nonexistent password "jugg" are given
+        Then  user is not logged in and error message is given
