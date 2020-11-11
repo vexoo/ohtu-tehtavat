@@ -1,5 +1,6 @@
 plugins {
     id  'application'
+    id  'jacoco'
 }
 
 repositories {
@@ -9,6 +10,7 @@ repositories {
 dependencies {
     def springVersion = '5.2.9.RELEASE'
     testImplementation 'junit:junit:4.13'
+    testCompile 'org.mockito:mockito-core:3.1.0'
     implementation 'com.google.guava:guava:29.0-jre'
     compile group: 'org.springframework', name: 'spring-core', version: springVersion
     compile group: 'org.springframework', name: 'spring-context', version: springVersion
@@ -20,4 +22,16 @@ mainClassName = 'ohtu.Main'
 
 run {
     standardInput = System.in
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        html.enabled true
+    }
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: 'main/**')
+        }))
+    }
 }
