@@ -27,11 +27,11 @@ public class TennisGame {
     }
 
     public String getScore() {
-        if (gameIsWon()) {
+        if (leader().getScore() >= 4 && scoreDifference() >= 2) {
             return "Win for " + leader().getName();
         }
 
-        if (playerHasAdvantage()) {
+        if (leader().getScore() >= 4 && scoreDifference() == 1) {
             return "Advantage " + leader().getName();
         }
 
@@ -40,14 +40,6 @@ public class TennisGame {
         }
         
         return scores[player1.getScore()] + "-" + scores[player2.getScore()]; 
-    }
-
-    private boolean gameIsWon() {
-        return leader().getScore() >= 4 && scoreDifference() >= 2;
-    }
-
-    private boolean playerHasAdvantage() {
-        return leader().getScore() >= 4 && scoreDifference() == 1;
     }
 
     private Player leader() {
